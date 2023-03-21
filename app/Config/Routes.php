@@ -37,6 +37,8 @@ $routes->group('admin', ['filter' => 'newLogin'], static function ($routes) {
     $routes->match(['get', 'post'], 'manage-files', 'AdminController::manageFiles');
 
     $routes->match(['get', 'post'], 'add-users', 'AdminController::addUsers');
+    $routes->match(['get', 'post'], 'roles', 'AdminController::roles');
+    $routes->match(['get', 'post'], 'permissions', 'AdminController::permissions');
 
 });
 
