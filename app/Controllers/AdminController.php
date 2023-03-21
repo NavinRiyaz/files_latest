@@ -128,6 +128,55 @@ class AdminController extends BaseController
         return view('admin/users/add_users', $role);
     }
 
+    public function roles(){
+        $data = [];
+        $roles = new RolesModel();
+        $role = $roles->findAll();
+        if ($this->request->getMethod() == 'post'){
+            $rules = [
+                'name' => 'required',
+            ];
+
+            $errors = [
+                'name' => [
+                    'required' => 'Please Enter role name before click submit button'
+                ]
+            ];
+
+            if (!$this->validate($rules, $errors)){
+                return view('admin/users/roles', [
+                    'validation' => $this->validator,
+                    'role' => $role,
+                ]);
+            } else {
+                $data = [
+                    'name' => $this->request->getVar('name'),
+                ];
+
+                if ($roles->insert($data)){
+                    return redirect()->to(base_url("admin/roles"))->with('success', 'User Roles added Successfully');
+                } else {
+                    return redirect()->to(base_url("admin/roles"))->with('error', 'Failed to add User Roles!');
+                }
+            }
+        }
+        return view('admin/users/roles', [
+            'role' => $role,
+        ]);
+    }
+
+    public function permissions(){
+        $data = [];
+
+
+        if ($this->request->getMethod() == 'post'){
+
+        }
+
+        return view('admin/users/permissions');
+
+    }
+
 
 }
 
